@@ -1,7 +1,9 @@
 {
     "name": "use-on-screen",
     "version": "0.1.0",
-    "description": "",
+    "description": "Used to check if a specific element is on screen viewport for React Hooks.",
+    "keywords": [ "scroll", "screen", "viewport", "react", "hooks" ],
+    "homepage": "https://github.com/felipe1234-dev/use-on-screen",
     "main": "./lib/useOnScreen.js",
     "license": "MIT",
     "scripts": {
