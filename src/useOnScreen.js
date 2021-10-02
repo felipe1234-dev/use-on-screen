@@ -1,45 +1,63 @@
 import { useState, useEffect } from "react";
 
-const isInViewport = elem => {
-    const rect = elem.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+const isInViewport = (elem, container) => {
+    const { top, left, bottom, right } = elem.getBoundingClientRect();
+    
+    if (container) {
+        const containerRect = container.getBoundingClientRect();
+
+        return (
+            top <= containerRect.top ? (
+                (containerRect.top - top) <= height 
+            ) : (
+                (bottom - containerRect.bottom) <= height
+            )
+        );
+    } 
+    else if (!container) {
+        return (
+            top >= 0 &&
+            left >= 0 &&
+            bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
 }
 
-function useOnScreen({ selector, debounce }) {
-    const [visible,setVisible] = useState(false);
-    const [position, setPosition] = useState({});
+function useOnScreen({ target, parent, delay }) {
+    const [visible, setVisible] = useState(false);
     
     useEffect(() => {
         let timer = null;
     
         window.onscroll = () => {
-            const target = document.querySelector(selector);
+            const targetElem = document.querySelector(target);
+            const parentElem = document.querySelector(parent);
             
-            if (!timer && target) {
+            if (!timer && targetElem) {
                 
-                const isOnScreen = isInViewport(target);
+                const isOnScreen = isInViewport(targetElem, parentElem);
                 
                 if (visible !== isOnScreen) {
                     timer = setTimeout(() => {
                         setVisible(isOnScreen);
-                        setPosition(target.getBoundingClientRect());
                         
                         timer = null;
-                    }, debounce);
+                    }, delay);
                 }
                 
             }
-            
         }
         
-    }, [visible, JSON.stringify(position)]);
+    }, [visible]);
     
-    return [visible, position];
+    return visible;
+}
+
+useOnScreen.defaultProps = {
+    target: "",
+    parent: "",
+    delay: 1000
 }
 
 export default useOnScreen;

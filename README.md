@@ -1,26 +1,55 @@
-> This project is created to simplify the process of publishing a React component to npm. For a full tutorial on publishing React component to npm, please refer to [this guide](https://medium.com/groftware/how-to-publish-your-react-component-on-npm-9cf48d91944d)
+# Use On Screen
 
-## Guide
-1. Replace contents in `/src` with your React component.
-1. Edit `webpack.config.js`, replace the following:
-	1. `entry: './src/YOUR_COMPONENT.js'` Replace value of `entry` to path to the entry point of your component.
-	1. Replace 	`output.filename` to the name of your component
-	```
-		output: {
-			path: path.resolve('lib'),
-			filename: 'YOUR_COMPONENT.js',
-			libraryTarget: 'commonjs2',
-  	},
-	```
-1. Edit `package.json`, replace the following:
-	1. `"name": "YOUR_PACKAGE_NAME"` Replace the value of `name` to your package name. This will be the name of the package that is published to `npm` and the name that is used when other people install your package using `npm install YOUR_PACKAGE_NAME`.
-	1. Update the values of `version` and `description` to accordingly.
-	1. `"main": "./lib/YOUR_COMPONENT.js"` replace `YOUR_COMPONENT.js` with the name that you've set in `output.filename` during Step #2
-	1. If your component uses any other dependencies, make sure to add them into the `peerDependencies` list.
-1. Building your component by running `npm build` in your command line. This would generate the folder `/lib` which includes your component.
-1. Publishing to [npm](https://www.npmjs.com/)
-	1. Make sure you've [registered an npm account](https://www.npmjs.com/signup)
-	1. Run `npm login` in your command line, and enter your credentials.
-	1. Run `npm publish`, and your React component will be uploaded to npm! You can find it at https://www.npmjs.com/package/[YOUR PACKAGE NAME] or your npm profile.
+**use-on-screen** is a React Hooks library used to detect if a certain element is visible on the screen, both in a scrollable container and in the window.
 
-1. To update your package, make sure you remember to increment the `version` in `package.json`, and then perform Step #5 again.
+## Installation ⚙️
+
+Use the package manager [npm](https://www.npmjs.com/) to install **use-on-screen**.
+
+```bash
+npm install use-on-screen
+```
+
+## Usage 🛠️
+
+```javascript
+// ...
+import useOnScreen from "use-on-screen";
+
+function FakeFeed() {
+    const visible = useOnScreen({
+        target: "#loader", // default: ""
+        parent: "#feed", 
+        // if the parent is not defined, 
+        // it will consider the entire user's viewport
+        delay: 500 // default: 1000
+    });
+    
+    // ...
+    
+    // Use useEffect() to call a function when element is visible
+    useEffect(() => {
+        if (visible) loadMorePosts();
+    }, [visible]);
+
+    // ...
+
+    return (
+        <section id="feed">
+            {/*
+                Many other posts over here...
+            */}
+            <span id="loader"></span> {/* if visible, it will 
+            load more posts*/}
+        </section>
+    );
+}
+```
+
+## Contributing 💭
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License 📝
+[MIT](https://choosealicense.com/licenses/mit/)
