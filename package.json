@@ -6,11 +6,13 @@
         "scroll",
         "screen",
         "viewport",
+        "detect",
+        "on screen",
         "react",
         "hooks"
     ],
     "homepage": "https://github.com/felipe1234-dev/use-on-screen",
-    "main": "./lib/useOnScreen.js",
+    "main": "./lib/useOnScreen",
     "license": "MIT",
     "scripts": {
         "build": "webpack"
