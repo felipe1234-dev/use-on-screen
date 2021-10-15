@@ -41,7 +41,7 @@ function useOnScreen({ target, parent, delay }) {
                 if (visible !== isOnScreen) {
                     timer = setTimeout(() => {
                         setVisible(isOnScreen);
-                        setPosition(target.getBoundingClientRect());
+                        setPosition(targetElem.getBoundingClientRect());
                         
                         timer = null;
                     }, delay);
