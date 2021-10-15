@@ -1,6 +1,6 @@
 {
     "name": "use-on-screen",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "use-on-screen is a React Hooks library used to detect if a certain element is visible on the screen, both in a scrollable container and in the window.",
     "keywords": [
         "scroll",
@@ -13,6 +13,7 @@
     ],
     "homepage": "https://github.com/felipe1234-dev/use-on-screen",
     "main": "./lib/useOnScreen",
+    "typings": "./lib/useOnScreen",
     "license": "MIT",
     "scripts": {
         "build": "webpack"

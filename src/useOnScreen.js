@@ -36,7 +36,6 @@ function useOnScreen({ target, parent, delay }) {
             const parentElem = document.querySelector(parent);
             
             if (!timer && targetElem) {
-                
                 const isOnScreen = isInViewport(targetElem, parentElem);
                 
                 if (visible !== isOnScreen) {
