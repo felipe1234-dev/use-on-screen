@@ -26,6 +26,7 @@ const isInViewport = (elem, container) => {
 
 function useOnScreen({ target, parent, delay }) {
     const [visible, setVisible] = useState(false);
+    const [position, setPosition] = useState({});
     
     useEffect(() => {
         let timer = null;
@@ -41,6 +42,7 @@ function useOnScreen({ target, parent, delay }) {
                 if (visible !== isOnScreen) {
                     timer = setTimeout(() => {
                         setVisible(isOnScreen);
+                        setPosition(target.getBoundingClientRect());
                         
                         timer = null;
                     }, delay);
@@ -51,7 +53,7 @@ function useOnScreen({ target, parent, delay }) {
         
     }, [visible]);
     
-    return visible;
+    return [visible, position];
 }
 
 useOnScreen.defaultProps = {

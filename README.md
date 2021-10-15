@@ -17,7 +17,7 @@ npm install use-on-screen
 import useOnScreen from "use-on-screen";
 
 function FakeFeed() {
-    const visible = useOnScreen({
+    const [visible, position] = useOnScreen({
         target: "#loader", // default: ""
         parent: "#feed", 
         // if the parent is not defined, 
@@ -29,7 +29,10 @@ function FakeFeed() {
     
     // Use useEffect() to call a function when element is visible
     useEffect(() => {
-        if (visible) loadMorePosts();
+        if (visible) {
+            loadMorePosts();
+            console.log(position);
+        }
     }, [visible]);
 
     // ...
